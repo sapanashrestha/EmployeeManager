@@ -3,6 +3,7 @@ using EmployeeManager.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 namespace EmployeeManager.Controllers
 {
+	//test
 	public class EmployeeController : Controller
 	{
 		private readonly ApplicationDbContext _context;
