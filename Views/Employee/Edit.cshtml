@@ -1,0 +1,40 @@
+﻿@using EmployeeManager.ViewModels
+@model EditEmployeeViewModel
+@{
+	ViewData["Title"] = "Edit Employee ";
+}
+<h2>Edit Employee Detail</h2>
+<form method="post">
+	<input type="hidden" asp-for="Id" />
+	<div>
+		<label class="form-label">Name</label>
+		<input type="text" asp-for="Name" class="form-control">
+	</div>
+	<div>
+		<label class="form-label">ContactNumber</label>
+		<input type="long" asp-for="ContactNumber" class="form-control">
+	</div>
+	<div>
+		<label class="form-label">Email</label>
+		<input type="email" asp-for="Email" class="form-control">
+	</div>
+	<div>
+		<label class="form-label">State</label>
+		<input type="text" asp-for="State" class="form-control">
+	</div>	
+	<div>
+		<label class="form-label">Department</label>
+		<input type="text" asp-for="Department" class="form-control">
+	</div>
+	<div class="form-group">
+		<input type="submit" value="Save" class="btn btn-primary" />
+		<a asp-action="Index" class="btn btn-warning">Back</a>
+	</div>
+</form>
+
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

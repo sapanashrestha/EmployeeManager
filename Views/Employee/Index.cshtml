@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Employee>
+
+@if(TempData["ResultOk"] != null)
+{
+    <h2 class="alert-success">@TempData["ResultOk"]</h2>
+}
+@if (TempData["DeleteOK"] != null)
+{
+    <h2 class="alert-danger">@TempData["DeleteOK"]</h2>
+}
+@if (TempData["EditOK"] != null)
+{
+    <h2 class="alert-warning">@TempData["EditOK"]</h2>
+}
+<a href="/employee/add" class="btn btn-success"><i class="bi bi-plus-lg"></i> New Employee</a>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th scope="col">Name</th>
+			<th scope="col">Contact</th>
+			<th scope="col">Email</th>
+			<th scope="col">State</th>
+			<th scope="col">Department</th>
+			<th scope="col">Salary</th>
+			<th scope="col">Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var employee in Model)
+		{
+			<tr id="row-@employee.Id">
+				<td>@employee.Name</td>
+				<td>@employee.ContactNumber</td>
+				<td>@employee.Email</td>
+				<td>@employee.State</td>
+				<td>@employee.Department</td>
+				<td>@employee.Salary</td>
+				<td>
+					<div role="group" class="btn-group">
+						<a asp-action="Edit" asp-route-id="@employee.Id" class="btn btn-warning">Edit</a>
+						<input type="button" class="btn btn-danger btn-employee-delete" name="id" id="@employee.Id" value="Delete" />
+					</div
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+@section Scripts {
+	<script>
+		$('.btn-employee-delete').on('click', function () {
+			debugger
+			var id = $(this).attr('id');
+			$.ajax({
+				url: '/Employee/Delete',
+				type: 'Post',
+				data: {
+					id: id
+				},
+				success: function (data) {
+					debugger
+					$("#row-" + id).remove();
+					alert('Delete this??')
+				},
+				error: function () {
+					alert("An error occurred while deleting the employee.");
+				}
+			});
+		});
+	</script>
+}
+
