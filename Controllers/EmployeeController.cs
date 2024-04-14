@@ -1,15 +1,18 @@
 ﻿using EmployeeManager.Data;
+using EmployeeManager.Services.Interface;
 using EmployeeManager.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 namespace EmployeeManager.Controllers
 {
 	public class EmployeeController : Controller
 	{
+		public IEmployeeService _employeeService;
 		private readonly ApplicationDbContext _context;
 
-		public EmployeeController(ApplicationDbContext context)
+		public EmployeeController(ApplicationDbContext context, IEmployeeService employeeService)
 		{
 			_context = context;
+			_employeeService = employeeService;
 		}
 		public IActionResult Index()
 		{
@@ -26,56 +29,24 @@ namespace EmployeeManager.Controllers
 		[HttpPost]
 		public IActionResult Add(CreateEmployeeViewModel employeeVM)
 		{
-			Employee employee = new()
-			{
-				Name = employeeVM.Name,
-				ContactNumber = employeeVM.ContactNumber,
-				State = employeeVM.State,
-				Email = employeeVM.Email,
-				Department = employeeVM.Department,
-				Salary = employeeVM.Salary,
-			};
-			_context.Employees.Add(employee);
-			_context.SaveChanges(); //database ma save gareko
+			_employeeService.CreateEmployee(employeeVM);
 			TempData["ResultOk"] = "Data added successfully";
 			return RedirectToAction("Index");
-
 		}
 
 		[HttpPost]
-		public JsonResult Delete(int id)
+		public void Delete(int id)
 		{
+			_employeeService.DeleteEmployee(id);
 			var employee = _context.Employees.Find(id);
-			if (employee != null)
-			{
-				_context.Employees.Remove(employee);
-				_context.SaveChanges();
-				TempData["DeleteOK"] = "Data Successfully Deleted";
-				return Json("Delete Success");
-			}
-			return Json("Delete Unsuccessful");
+			TempData["DeleteOK"] = "Data Successfully Deleted";
 		}
 
 		[HttpGet]
 		public IActionResult Edit(int id)
-		{
-
-			var employee = _context.Employees.Find(id);
-			EditEmployeeViewModel employeeVM = new()
-			{
-				Name = employee!.Name,
-				ContactNumber = employee.ContactNumber,
-				State = employee.State,
-				Email = employee.Email,
-				Department = employee.Department,
-			};
-			if (employee == null)
-			{
-				return NotFound();
-			}
-			//ViewBag.FormTitle = "Edit Employee Entries";
-			//return View("add" employee);
-
+		{	
+		
+			EditEmployeeViewModel employeeVM = _employeeService.EditEmployee(id);
 			return View(employeeVM);
 
 		}
@@ -87,19 +58,7 @@ namespace EmployeeManager.Controllers
 			{
 				if (ModelState.IsValid)
 				{
-					Employee employee = new()
-
-
-					{
-						Id = employeeVM.Id,
-						Name = employeeVM.Name,
-						ContactNumber = employeeVM.ContactNumber,
-						State = employeeVM.State,
-						Email = employeeVM.Email,
-						Department = employeeVM.Department,
-					};
-					_context.Employees.Update(employee);
-					_context.SaveChanges();
+					_employeeService.EditEmployee(employeeVM); //service call gareko 
 					TempData["EditOk"] = "Data Edited successfully";
 					return RedirectToAction("Index");
 				}

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "qn8IYyNfVtT3MFj9D4zYSRGnc3iRWyGUsOiCM5SQLvc/fyaXQs8it4/IAXW2k1LfrHjcCeKWi2fxN0JLg86cxQ==",
+  "dgSpecHash": "NFebe1RqdbMOAM4SAK9Quq6pPj46O6XX3YwnyGcb6QaYMR3m2l2uZqxRjBVd416zzn1PjwuJRtx3sbuTXmTMSQ==",
   "success": true,
   "projectFilePath": "D:\\SiliconSoft\\EmployeeManager\\EmployeeManager.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\lenovo\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
