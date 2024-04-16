@@ -1,68 +1,49 @@
-﻿using EmployeeManager.Data;
+﻿using AutoMapper;
+using EmployeeManager.Data;
+using EmployeeManager.Repository.Interface;
 using EmployeeManager.Services.Interface;
 using EmployeeManager.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace EmployeeManager.Services.Implementation
 {
 	public class EmployeeService : IEmployeeService
 	{
+		
 		private readonly ApplicationDbContext _context;
-        public EmployeeService(ApplicationDbContext context)
+		private readonly IMapper _mapper;
+		private IEmployeeRepository _employeeRepository;
+		public EmployeeService(ApplicationDbContext context, IMapper mapper, IEmployeeRepository employeeRepository)
         {
             _context = context;
+			_mapper = mapper;
+			_employeeRepository = employeeRepository;
         }
         public void CreateEmployee(CreateEmployeeViewModel employeeVM)
 		{
-			Employee employee = new()
-			{
-				Name = employeeVM.Name,
-				ContactNumber = employeeVM.ContactNumber,
-				State = employeeVM.State,
-				Email = employeeVM.Email,
-				Department = employeeVM.Department,
-				Salary = employeeVM.Salary,
-			};
-			_context.Employees.Add(employee);
-			_context.SaveChanges(); //database ma save gareko
+			var employee = _mapper.Map<Employee>(employeeVM);
+			_employeeRepository.CreateEmployee(employee);			
 		}
 
 		public EditEmployeeViewModel EditEmployee(int id)
 		{
-			var employee = _context.Employees.Find(id);
-			EditEmployeeViewModel employeeVM = new()
-			{
-				Name = employee!.Name,
-				ContactNumber = employee.ContactNumber,
-				State = employee.State,
-				Email = employee.Email,
-				Department = employee.Department,
-			};
+			var employee = _employeeRepository.EditEmployee(id);
+			EditEmployeeViewModel employeeVM = _mapper.Map<EditEmployeeViewModel>(employee);
+			// map employee object to a new instance of the EditEmployeeViewModel class.
 			return employeeVM;
 		}
 
 		public void EditEmployee(EditEmployeeViewModel employeeVM)
 		{
-			Employee employee = new()
-			{
-				Id = employeeVM.Id,
-				Name = employeeVM.Name,
-				ContactNumber = employeeVM.ContactNumber,
-				State = employeeVM.State,
-				Email = employeeVM.Email,
-				Department = employeeVM.Department,
-			};
-			_context.Employees.Update(employee);
-			_context.SaveChanges();
+			//employeeVM object (which is an instance of the EditEmployeeViewModel class) to a new instance of the Employee class.
+			Employee employee = _mapper.Map<Employee>(employeeVM);	
+			_employeeRepository.EditEmployee(employee);
+
 		}
 		public void DeleteEmployee(int id)
 		{
-			var employee = _context.Employees.Find(id);
-			if(employee!=null)
-			{   
-				_context.Employees.Remove(employee);
-				_context.SaveChanges();
-			}
+		_employeeRepository.DeleteEmployee(id);
 		}
 	}
 }

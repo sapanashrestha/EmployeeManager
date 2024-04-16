@@ -2,15 +2,13 @@
 
 @if(TempData["ResultOk"] != null)
 {
-    <h2 class="alert-success">@TempData["ResultOk"]</h2>
+    <h2 class="alert alert-success" style="margin-left: 12px; text-align: center">@TempData["ResultOk"]</h2>
 }
-@if (TempData["DeleteOK"] != null)
-{
-    <h2 class="alert-danger">@TempData["DeleteOK"]</h2>
-}
+
+<div id="delete-message" ></div>
 @if (TempData["EditOK"] != null)
 {
-    <h2 class="alert-warning">@TempData["EditOK"]</h2>
+    <h2 class="alert alert-warning" style="margin-left: 12px; text-align: center">@TempData["EditOK"]</h2>
 }
 <a href="/employee/add" class="btn btn-success"><i class="bi bi-plus-lg"></i> New Employee</a>
 
@@ -40,7 +38,7 @@
 					<div role="group" class="btn-group">
 						<a asp-action="Edit" asp-route-id="@employee.Id" class="btn btn-warning">Edit</a>
 						<input type="button" class="btn btn-danger btn-employee-delete" name="id" id="@employee.Id" value="Delete" />
-					</div
+					</div>
 				</td>
 			</tr>
 		}
@@ -58,9 +56,13 @@
 					id: id
 				},
 				success: function (data) {
-					debugger
+						debugger			
+					alert('Delete this??');
+
 					$("#row-" + id).remove();
-					alert('Delete this??')
+					if (data == "success") {
+						$("#delete-message").text("Data Deleted Successfully");
+					}					
 				},
 				error: function () {
 					alert("An error occurred while deleting the employee.");
