@@ -2,9 +2,9 @@
 {
 	public interface IGenericRepository<T> where T : class
 	{
-		void Create(T entity);
-		T Edit(int id);
-		void Edit(T entity);
-		void Delete(int id);
+		Task Create(T entity);
+		Task<T> Edit(int id);
+		Task Edit(T entity);
+		Task Delete(int id);
 	}
 }

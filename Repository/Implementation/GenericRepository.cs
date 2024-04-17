@@ -13,29 +13,29 @@ namespace EmployeeManager.Repository.Implementation
 			_context = context;
 			_dbSet = _context.Set<T>();
 		}
-		public void Create(T entity)
+		public async Task Create(T entity)
 		{
-			_context.Add(entity);
-			_context.SaveChanges();
+			await _context.AddAsync(entity);
+			await _context.SaveChangesAsync();
 		}
-		public T Edit(int id)
+		public async Task<T> Edit(int id)
 		{
-			var entity = _dbSet.Find(id);
+			var entity = await _dbSet.FindAsync(id);
 			return entity;
 
 		}
-		public void Edit(T entity)
+		public async Task Edit(T entity)
 		{
 			_context.Update(entity);
-			_context.SaveChanges();
+			await _context.SaveChangesAsync();
 		}
-		public void Delete(int id)
+		public async Task Delete(int id)
 		{
-			var entity = _dbSet.Find(id);
+			var entity =await _dbSet.FindAsync(id);
 			if (entity != null)
 			{
 				_context.Remove(entity);
-				_context.SaveChanges();
+				await _context.SaveChangesAsync();
 			}
 		}
 	}

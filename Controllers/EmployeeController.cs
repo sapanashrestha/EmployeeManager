@@ -28,38 +28,37 @@ namespace EmployeeManager.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Add(CreateEmployeeViewModel employeeVM)
-		{ 
-				_employeeService.CreateEmployee(employeeVM);
-				TempData["ResultOk"] = "Data added successfully";
-				return RedirectToAction("Index");
+		public async Task<IActionResult> Add(CreateEmployeeViewModel employeeVM)
+		{
+			await _employeeService.CreateEmployee(employeeVM);
+			TempData["ResultOk"] = "Data added successfully";
+			return RedirectToAction("Index");
 		}
 
 		[HttpPost]
-		public JsonResult Delete(int id)
+		public async Task<JsonResult> Delete(int id)
 		{
-			var employee = _context.Employees.Find(id);
-			_employeeService.DeleteEmployee(id);
-			
+			var employee = await _context.FindAsync<Employee>(id);
+			await _employeeService.DeleteEmployee(id);
 			return Json("success");
 			//TempData["DeleteOK"] = "Data Successfully Deleted";
 		}
 
 		[HttpGet]
-		public IActionResult Edit(int id)
-		{	
-			EditEmployeeViewModel employeeVM = _employeeService.EditEmployee(id);
+		public async Task<IActionResult> Edit(int id)
+		{
+			EditEmployeeViewModel employeeVM = await _employeeService.EditEmployee(id);
 			return View(employeeVM);
 		}
 
 		[HttpPost]
-		public IActionResult Edit(EditEmployeeViewModel employeeVM)
+		public async Task<IActionResult> Edit(EditEmployeeViewModel employeeVM)
 		{
 			try
 			{
 				if (ModelState.IsValid)
 				{
-					_employeeService.EditEmployee(employeeVM); //service call gareko 
+					await _employeeService.EditEmployee(employeeVM); //service call gareko 
 					TempData["EditOk"] = "Data Edited successfully";
 					return RedirectToAction("Index");
 				}

@@ -21,30 +21,30 @@ namespace EmployeeManager.Services.Implementation
 			_mapper = mapper;
 			_employeeRepository = employeeRepository;
 		}
-		public void CreateEmployee(CreateEmployeeViewModel employeeVM)
+		public async Task CreateEmployee(CreateEmployeeViewModel employeeVM)
 		{
 			var employee = _mapper.Map<Employee>(employeeVM);
-			_employeeRepository.Create(employee);
+			await _employeeRepository.Create(employee);
 		}
 
-		public EditEmployeeViewModel EditEmployee(int id)
+		public async Task< EditEmployeeViewModel> EditEmployee(int id)
 		{
-			var employee = _employeeRepository.Edit(id);
+			var employee =await _employeeRepository.Edit(id);
 			EditEmployeeViewModel employeeVM = _mapper.Map<EditEmployeeViewModel>(employee);
 			// map employee object to a new instance of the EditEmployeeViewModel class.
 			return employeeVM;
 		}
 
-		public void EditEmployee(EditEmployeeViewModel employeeVM)
+		public async Task EditEmployee(EditEmployeeViewModel employeeVM)
 		{
 			//employeeVM object (which is an instance of the EditEmployeeViewModel class) to a new instance of the Employee class.
 			Employee employee = _mapper.Map<Employee>(employeeVM);
-			_employeeRepository.Edit(employee);
+			await _employeeRepository.Edit(employee);
 
 		}
-		public void DeleteEmployee(int id)
+		public async Task DeleteEmployee(int id)
 		{
-			_employeeRepository.Delete(id);
+			await _employeeRepository.Delete(id);
 		}
 	}
 }

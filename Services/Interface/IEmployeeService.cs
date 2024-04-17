@@ -4,14 +4,14 @@ namespace EmployeeManager.Services.Interface
 {
 	public interface IEmployeeService
 	{
-		void CreateEmployee(CreateEmployeeViewModel createEmployeeViewModel);
+		Task CreateEmployee(CreateEmployeeViewModel createEmployeeViewModel);
 		
 		//Get
-		EditEmployeeViewModel EditEmployee(int id);
+		Task<EditEmployeeViewModel> EditEmployee(int id);
 		
 		//Post
-		void EditEmployee(EditEmployeeViewModel editEmployeeViewModel);
-		void DeleteEmployee(int id);
+		Task EditEmployee(EditEmployeeViewModel editEmployeeViewModel);
+		Task DeleteEmployee(int id);
 
 
 	}
