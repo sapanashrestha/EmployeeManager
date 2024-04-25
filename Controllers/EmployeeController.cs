@@ -1,9 +1,11 @@
 ﻿using EmployeeManager.Data;
 using EmployeeManager.Services.Interface;
 using EmployeeManager.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace EmployeeManager.Controllers
 {
+	[Authorize]
 	public class EmployeeController : Controller
 	{
 		public IEmployeeService _employeeService;
@@ -28,6 +30,7 @@ namespace EmployeeManager.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
 		public async Task<IActionResult> Add(CreateEmployeeViewModel employeeVM)
 		{
 			await _employeeService.CreateEmployee(employeeVM);
@@ -36,6 +39,8 @@ namespace EmployeeManager.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
+
 		public async Task<JsonResult> Delete(int id)
 		{
 			var employee = await _context.FindAsync<Employee>(id);
@@ -45,6 +50,8 @@ namespace EmployeeManager.Controllers
 		}
 
 		[HttpGet]
+		[Authorize]
+
 		public async Task<IActionResult> Edit(int id)
 		{
 			EditEmployeeViewModel employeeVM = await _employeeService.EditEmployee(id);
@@ -52,6 +59,8 @@ namespace EmployeeManager.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
+
 		public async Task<IActionResult> Edit(EditEmployeeViewModel employeeVM)
 		{
 			try
