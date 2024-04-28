@@ -186,6 +186,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/SiliconSoft/EmployeeManager/Views/ApplicationRole/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwbGljYXRpb25Sb2xlXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SiliconSoft/EmployeeManager/Views/ApplicationRole/DeleteRole.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwbGljYXRpb25Sb2xlXERlbGV0ZVJvbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SiliconSoft/EmployeeManager/Views/ApplicationRole/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwbGljYXRpb25Sb2xlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/SiliconSoft/EmployeeManager/Views/Employee/Add.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcQWRkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

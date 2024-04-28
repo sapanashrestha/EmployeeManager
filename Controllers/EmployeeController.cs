@@ -23,14 +23,16 @@ namespace EmployeeManager.Controllers
 			return View(employeeList);
 		}
 		[HttpGet]
-		public IActionResult Add()
+        [Authorize(Roles = "Admin")]
+
+        public IActionResult Add()
 		{
 			//ViewBag.FormTitle = "New Employee Entries";
 			return View();
 		}
 
 		[HttpPost]
-		[Authorize]
+		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> Add(CreateEmployeeViewModel employeeVM)
 		{
 			await _employeeService.CreateEmployee(employeeVM);
@@ -39,7 +41,7 @@ namespace EmployeeManager.Controllers
 		}
 
 		[HttpPost]
-		[Authorize]
+		[Authorize(Roles = "Admin")]
 
 		public async Task<JsonResult> Delete(int id)
 		{
@@ -50,7 +52,7 @@ namespace EmployeeManager.Controllers
 		}
 
 		[HttpGet]
-		[Authorize]
+		[Authorize(Roles = "Admin, User")]
 
 		public async Task<IActionResult> Edit(int id)
 		{
@@ -59,7 +61,7 @@ namespace EmployeeManager.Controllers
 		}
 
 		[HttpPost]
-		[Authorize]
+		[Authorize(Roles = "Admin,User")]
 
 		public async Task<IActionResult> Edit(EditEmployeeViewModel employeeVM)
 		{
